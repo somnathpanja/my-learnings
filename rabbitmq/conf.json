@@ -1,0 +1,28 @@
+{
+  "localhost": {
+    "host": "127.0.0.1",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit0": {
+    "host": "192.168.0.1",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit1": {
+    "host": "192.168.0.2",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit2": {
+    "host": "192.168.0.3",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit-elb" :{
+    "host": "192.168.0.4",
+    "user": "guest",
+    "password": "guest",
+    "isELB" : true
+  }
+}
