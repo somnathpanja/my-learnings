@@ -11,7 +11,7 @@
     longjohn.async_trace_limit = 3;
     process.name = "myapp";
     var fileWritter = require('./file-writer');
-    var debugLogger = new fileWritter('/var/log/myapps/', process.name + "_debug.log");
+    var debugLogger = new fileWritter('/var/log/myapps', process.name + "_debug.log");
 
     var sampleErrorMsgs = [
         "Memory exception",
