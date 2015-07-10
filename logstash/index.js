@@ -30,7 +30,7 @@
         var sampleData = {
             message: message,
             eror_code: error.code,
-            err: error,
+            err: JSON.stringify(error),
             time_ms : {
                 "session" : getRandomNumber(1, 100),
                 "parsing" : getRandomNumber(1, 100),
