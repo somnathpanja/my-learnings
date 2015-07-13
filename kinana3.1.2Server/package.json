@@ -1,5 +1,5 @@
 {
-  "name": "kibana3server",
+  "name": "kibana3server" ,
   "description": "RabbitMQ learning",
   "keywords": [
     "kibana", "3.1.2"
