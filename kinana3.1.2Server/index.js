@@ -1,6 +1,6 @@
 var express = require('express'),
     app = express();
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/'));
 
 var server = app.listen(8080, function () {
     var host = server.address().address;
