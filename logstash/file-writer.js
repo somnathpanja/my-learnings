@@ -1,7 +1,3 @@
-/**
- * Created by somnath.panja on 7/9/2015.
- */
-
 (function () {
     var fs = require('fs');
     var FileWritter = function (path, fileName) {

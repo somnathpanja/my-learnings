@@ -1,7 +1,7 @@
 var amqp = require('amqp');
 var RABBIT_CONF = require('./../conf.json');
 
-var hostName = process.argv[2];
+var hostName = process.argv[2] ?  process.argv[2] : "A";
 var rabbitHostName = process.argv[3];
 
 if(!rabbitHostName)
