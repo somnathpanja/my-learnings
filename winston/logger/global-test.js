@@ -1,6 +1,6 @@
 process.title = "testApp";
 require('./index.js'); // One time require in whole app
-Logger = CNSNGLogger;
+Logger = ABCDLogger;
 
 Logger.info('This is a sample info message %s'.red);
 Logger.debug('This is a sample debug message', {a:1});

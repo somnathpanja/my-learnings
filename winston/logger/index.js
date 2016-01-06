@@ -1,6 +1,6 @@
 (function () {
-    if (GLOBAL.CNSNGLogger) {
-        module.exports = GLOBAL.CNSNGLogger;
+    if (GLOBAL.ABCDLogger) {
+        module.exports = GLOBAL.ABCDLogger;
         return;
     }
 
@@ -123,7 +123,7 @@
         });
     })();
 
-    module.exports = GLOBAL.CNSNGLogger = {
+    module.exports = GLOBAL.ABCDLogger = {
         data: function () {
             if (INFO_LOGGER) INFO_LOGGER.data(INFO_LOGGER, arguments);
         },

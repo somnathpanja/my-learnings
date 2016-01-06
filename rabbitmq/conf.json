@@ -1,26 +1,31 @@
 {
+  "rabbit": {
+    "host": "localhost",
+    "user": "guest",
+    "password": "guest"
+  },
   "localhost": {
-    "host": "127.0.0.1",
+    "host": "localhost",
     "user": "guest",
     "password": "guest"
   },
   "rabbit0": {
-    "host": "52.8.217.14",
+    "host": "localhost",
     "user": "guest",
     "password": "guest"
   },
   "rabbit1": {
-    "host": "52.8.202.137",
+    "host": "localhost",
     "user": "guest",
     "password": "guest"
   },
   "rabbit2": {
-    "host": "52.8.133.251",
+    "host": "localhost",
     "user": "guest",
     "password": "guest"
   },
   "rabbit-elb" :{
-    "host": "rabbitmq-279389424.us-west-1.elb.amazonaws.com",
+    "host": "127.0.0.1",
     "user": "guest",
     "password": "guest",
     "isELB" : true
