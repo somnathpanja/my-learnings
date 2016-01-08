@@ -40,12 +40,13 @@ var createPDFAndStream = function (req, res) {
   var doc = new PDFDoc(docSettings);
   doc.pipe(res);
 
-  doc.text("Hello title", {align:'center'});
+  doc.text("Hello title", {align: 'center'});
 
-  table = new PDF.Table(doc, doc.currentLineHeight() + doc.page.margins.top +10);
-  table.columns.add(new PDF.Table.Column("Column1"), {widthInPercent: 10 });
-  table.columns.add(new PDF.Table.Column("Column2"), {widthInPercent: 10 });
-  table.columns.add(new PDF.Table.Column("Column3"), {widthInPercent: 80 });
+  table = new PDF.Table(doc, doc.currentLineHeight() + doc.page.margins.top + 10);
+  table.columns.add(new PDF.Table.Column("Column1", {widthInPercent: 25}));
+  table.columns.add(new PDF.Table.Column("Column2", {widthInPercent: 25}));
+  table.columns.add(new PDF.Table.Column("Column3", {widthInPercent: 25}));
+  table.columns.add(new PDF.Table.Column("Column3", {widthInPercent: 25}));
   table.startRender();
 
   var mongoHitCount = 0;
@@ -60,7 +61,7 @@ var createPDFAndStream = function (req, res) {
 
     getDataFromMongo(mongoHitCount, function (err, rows) {
       rows.forEach(function (row) {
-        table.addRow(row);
+        table.renderRow(row);
         console.log(row);
       });
 
