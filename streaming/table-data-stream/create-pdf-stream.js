@@ -1,17 +1,17 @@
 var express = require('express'),
   PDFDoc = require('pdfkit'),
   request = require('request'),
-  expressJSON = require('express-json'),
+  //expressJSON = require('express-json'),
   PDF = require('./pdfDoc');
 var table;
 // Start Express
 var app = express();
 
 // Use JSON in POST body
-app.use(expressJSON());
+//app.use(expressJSON());
 
 // Setup POST response
-app.get('/report/inventory/pdf', function (req, res) {
+app.get('/report/sample/pdf', function (req, res) {
   // Write headers
   res.writeHead(200, {
     'Content-Type': 'application/pdf',
