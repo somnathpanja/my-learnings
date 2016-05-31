@@ -1,0 +1,33 @@
+{
+  "rabbit": {
+    "host": "localhost",
+    "user": "guest",
+    "password": "guest"
+  },
+  "localhost": {
+    "host": "localhost",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit0": {
+    "host": "localhost",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit1": {
+    "host": "localhost",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit2": {
+    "host": "localhost",
+    "user": "guest",
+    "password": "guest"
+  },
+  "rabbit-elb" :{
+    "host": "127.0.0.1",
+    "user": "guest",
+    "password": "guest",
+    "isELB" : true
+  }
+}

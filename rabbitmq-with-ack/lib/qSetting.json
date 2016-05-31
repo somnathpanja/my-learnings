@@ -1,0 +1,12 @@
+{
+  "q": {
+    "autoDelete": false,
+    "arguments": {
+      "x-max-priority": 3
+    }
+  },
+  "subscriber": {
+    "ack": true,
+    "prefetchCount": 10
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "RabbitMQ-learning",
+  "description": "RabbitMQ learning",
+  "keywords": [
+    "amqp", "rabitmq"
+  ],
+  "version": "0.0.1",
+  "author": {
+    "name": "Somnath Panja"
+  },
+  "contributors": [
+    {
+      "name": "Somnath Panja"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "dependencies": {
+    "amqp": "~0.2.4"
+  }
+}
