@@ -1,6 +1,6 @@
 var amqp = require('amqp');
 var RABBIT_CONF = require('./../conf.json');
-var NO_OF_MSG_PER_SEC = 10;
+var NO_OF_MSG_PER_SEC = 4;
 process.title = "publisher";
 var hostName = process.argv[2] ? process.argv[2] : "A";
 var rabbitHostName = process.argv[3];
@@ -18,21 +18,21 @@ connection.on('ready', function () {
 
   connection.queue("my-queue", settings.q, function (q) {
     //q.destroy();
-    //return;
+   // return;
     var publish = function (message) {
       var i = 1;
       var date = (new Date()).toUTCString();
       var priority = 1;
       for (; i <= NO_OF_MSG_PER_SEC; i++) {
         priority = Math.floor(Math.random() * (settings.q["arguments"]["x-max-priority"] + 1));
-        priority = priority == 0 ? 1 : priority;
+        priority = 1;//priority == 0 ? 1 : priority;
 
         connection.publish("my-queue", {
           host: hostName,
           msg_index: messageIndex,
           priority: priority,
           data: data
-        }, {priority: priority}, function (ex) {
+        }, {priority: priority, expiration:'10000'}, function (ex) {
           console.log(ex);
         });
 
@@ -42,7 +42,7 @@ connection.on('ready', function () {
       console.log(date + '- No of message sent: ' + messageIndex);
 
       if (i == NO_OF_MSG_PER_SEC + 1)
-        setTimeout(publish, 1000);
+        setTimeout(publish, 10500);
     };
 
     setTimeout(publish, 1000);

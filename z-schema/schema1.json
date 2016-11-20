@@ -1,0 +1,24 @@
+{
+  "Refresh": {
+    "id": "Refresh",
+    "type": "object",
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "data" : {
+        "id": "Data",
+        "type": "object",
+        "properties": {
+          "mac": { "type": "string" },
+          "type": { "type": "string" },
+          "stream" : { "type": "string" },
+          "socketId": { "type": "string" }
+        },
+        "required": ["mac", "type", "stream", "socketId"]
+      }
+    },
+    "required": ["type", "data"]
+  }
+}
+
+

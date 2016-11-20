@@ -1,0 +1,180 @@
+[
+  {
+    "id": "Action:Web:DeviceCommon",
+    "type": "object",
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data" : {
+        "type": "object",
+
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string" }
+        },
+        "required": ["mac", "eType", "mode", "model", "stream"]
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id": "Action:Web:TroubleShoot",
+
+    "allOf": [{ "$ref": "Action:Web:DeviceCommon" }],
+
+    "properties": {
+      "data": {
+        "type": "object",
+
+        "additionalProperties": false,
+        "properties": {
+          "duration": {
+            "type": "integer",
+
+            "description": "Duration in seconds this command should execute"
+          }
+        },
+        "required": ["duration"]
+      }
+    },
+    "required": ["data"]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Ping",
+    "properties": {
+      "data": {
+        "type": "object",
+        "required": ["command", "arguments"],
+        "properties": {
+          "command": { "type": "string", "enum":["ping"] },
+          "arguments": {
+            "type": "object",
+            "properties": {
+              "host": {"type":"string", "description":"IP Address of host machine" },
+              "count": {"type":"integer", "minimum": 1, "maximum": 10, "description":"Number of packets" },
+              "size": {"type":"integer", "minimum": 1, "maximum": 65507, "description":"Buffer size" }
+            },
+            "required": ["host", "count", "size"]
+          }
+        }
+      }
+    }
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Traceroute",
+    "properties": {
+      "data": {
+        "type": "object",
+        "required": ["command", "arguments"],
+        "properties": {
+          "command": { "type": "string", "enum":["traceroute"] },
+          "arguments": {
+            "type": "object",
+            "required": ["host", "dontFrag", "showTtl", "verbose", "traceMethod"],
+            "properties": {
+              "host": {"type":"string",  "description":"IP Address of host machine" },
+              "dontFrag": {"type":"boolean", "description":"Do not fragmentation flag" },
+              "showTtl": {"type":"boolean", "description":"Display TTL flag" },
+              "verbose": {"type":"boolean", "description":"Verbose flag" },
+              "traceMethod": {"type": "string", "enum":["ICMP", "UDP"], "description":"Trace method protocol" }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.NSLookup",
+    "properties": {
+      "data": {
+        "type": "object",
+        "required": ["command", "arguments"],
+        "properties": {
+          "command": { "type": "string", "enum":["nslookup"] },
+          "arguments": {
+            "type": "object",
+            "properties": {
+              "host": {"type":"string", "description":"Host name for e.g. google.com" }
+            },
+            "required": ["host"]
+          }
+        }
+      }
+    }
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.PacketCapture",
+    "properties": {
+      "data": {
+        "type": "object",
+        "required": ["command", "arguments"],
+        "properties": {
+          "command": {"type": "string", "enum":["tcpdump"] },
+          "arguments": {
+            "type": "object",
+            "properties": {
+              "interface": {"type":"string" }
+            },
+            "required": ["interface"]
+          }
+        }
+      }
+    }
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Log",
+    "properties": {
+      "data": {
+        "type": "object",
+        "required": ["command", "arguments"],
+        "properties": {
+          "command": {"type": "string", "enum":["log"] },
+          "arguments": {"type": "object", "description": "This should be empty" }
+        }
+      }
+    }
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Abort",
+    "properties": {
+      "data": {
+        "type": "object",
+        "required": ["command", "arguments"],
+
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "this should be empty",
+            "maxLength": 0
+          },
+          "arguments": {
+            "type": "object",
+            "description": "This should be empty"
+          }
+        }
+      }
+    }
+  },
+  {
+    "id": "Action:Web:ChannelScan",
+    "allOf": [{ "$ref": "Action:Web:DeviceCommon" }],
+    "properties": {
+      "data": {
+        "type": "object",
+        "properties": {
+          "band": { "enum": ["2.4GHz", "5GHz"] }
+        },
+        "required": ["band"]
+      }
+    },
+    "required": ["data"]
+  },
+  {
+    "id": "Action:Web:TechSupport",
+    "allOf": [{ "$ref": "Action:Web:DeviceCommon" }]
+  }
+]

@@ -2,11 +2,13 @@
   "q": {
     "autoDelete": false,
     "arguments": {
-      "x-max-priority": 3
     }
   },
   "subscriber": {
     "ack": true,
-    "prefetchCount": 10
+    "prefetchCount": 1
+  },
+  "publisher":{
+    "x-message-ttl": 10000
   }
 }

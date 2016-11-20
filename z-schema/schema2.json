@@ -1,0 +1,42 @@
+[
+  {
+    "id": "CommonDataProperties",
+    "type": "object",
+    "properties": {
+      "mac": { "type": "string" },
+      "type": { "type": "string" },
+      "stream" : { "type": "string" },
+      "socketId": { "type": "string" }
+    },
+    "required": ["mac", "type", "stream", "socketId"]
+  },
+  {
+    "id": "CommonMsgProperties",
+    "type": "object",
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "data" : {"$ref": "CommonDataProperties"}
+    },
+    "required": ["type", "data"]
+  },
+  {
+    "id": "Refresh",
+    "type": "object",
+    "allOf": [
+      { "$ref": "CommonMsgProperties" }
+    ],
+    "properties": {
+      "data": {
+        "type": "object",
+        "properties": {
+          "state": { "type": "string" }
+        },
+        "required": ["state"]
+      },
+      "city": { "type": "string" }
+    },
+    "required": ["city", "data"]
+  }
+]
+

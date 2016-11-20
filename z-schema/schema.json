@@ -1,0 +1,367 @@
+[
+  {
+    "id": "Action:Web:Refresh",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "opt": { "type": "string" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id": "Action:Web:Reboot",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data" : {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]}
+        },
+        "required": ["mac", "eType", "mode", "model", "stream"]
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id": "Action:Web:Debug",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "fields": { "type": "string" }
+        },
+        "required": ["mac", "eType", "mode", "model", "stream", "fields"]
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id": "Action:Web:TroubleShoot",
+    "anyOf": [{ "$ref": "Action:Web:TroubleShoot.Ping" },
+      { "$ref": "Action:Web:TroubleShoot.Traceroute" },
+      { "$ref": "Action:Web:TroubleShoot.NSLookup" },
+      { "$ref": "Action:Web:TroubleShoot.Log" },
+      { "$ref": "Action:Web:TroubleShoot.PacketCapture" },
+      { "$ref": "Action:Web:TroubleShoot.PacketCapture.C3VoIP" },
+      { "$ref": "Action:Web:TroubleShoot.Abort"}]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Ping",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream", "command", "arguments", "duration"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "command": { "type": "string", "enum":["ping"] },
+          "arguments": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "host": {"type":"string", "format": "IP_OR_HOST", "description":"IP Address of host machine" },
+              "count": {"type":"integer", "minimum": 1, "maximum": 10, "description":"Number of packets" },
+              "size": {"type":"integer", "minimum": 1, "maximum": 1500, "description":"Buffer size" }
+            },
+            "required": ["host", "count", "size"]
+          },
+          "duration": { "type": "integer", "description": "Duration of execution" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Traceroute",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream", "command", "arguments", "duration"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "command": { "type": "string", "enum":["traceroute"] },
+          "arguments": {
+            "type": "object",
+            "required": ["host", "dontFrag", "showTtl", "verbose", "traceMethod"],
+            "additionalProperties": false,
+            "properties": {
+              "host": {"type":"string",  "description":"IP Address of host machine" },
+              "dontFrag": {"type":"boolean", "description":"Do not fragmentation flag" },
+              "showTtl": {"type":"boolean", "description":"Display TTL flag" },
+              "verbose": {"type":"boolean", "description":"Verbose flag" },
+              "traceMethod": {"type": "string", "enum":["ICMP", "UDP"], "description":"Trace method protocol" }
+            }
+          },
+          "duration": { "type": "integer", "description": "Duration of execution" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.NSLookup",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream", "command", "arguments", "duration"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "command": { "type": "string", "enum":["nslookup"] },
+          "arguments": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "host": {"type":"string", "format": "IP_OR_HOST", "description":"Host name for e.g. google.com" }
+            },
+            "required": ["host"]
+          },
+          "duration": { "type": "integer", "description": "Duration of execution" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.PacketCapture",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream", "command", "arguments", "duration"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "command": {"type": "string", "enum":["tcpdump"] },
+          "arguments": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "interface": {"type":"string" },
+              "count": {"type":"integer", "minimum": 1, "maximum": 1500}
+            },
+            "required": ["interface", "count"]
+          },
+          "duration": { "type": "integer", "description": "Duration of execution" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.PacketCapture.C3VoIP",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream", "command", "arguments", "duration"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string", "enum":["C3VoIP"]},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "command": {"type": "string", "enum":["tcpdump"] },
+          "arguments": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "interface": {"type":"string" }
+            },
+            "required": ["interface"]
+          },
+          "duration": { "type": "integer", "description": "Duration of execution" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Log",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream", "command", "arguments", "duration"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "command": {"type": "string", "enum":["log"] },
+          "arguments": {"type": "object", "description": "This should be empty", "additionalProperties": false },
+          "duration": { "type": "integer", "description": "Should be 0" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id" : "Action:Web:TroubleShoot.Abort",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "required": ["mac", "eType", "mode", "model", "stream", "command", "arguments", "duration"],
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "command": { "type": "string", "description": "this should be empty", "maxLength": 0 },
+          "arguments": { "type": "object", "description": "This should be empty", "additionalProperties": false },
+          "duration": { "type": "integer", "description": "Duration of execution" }
+        }
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id": "Action:Web:ChannelScan",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "band": { "enum": ["2.4GHz", "5GHz"] }
+        },
+        "required": ["mac", "eType", "mode", "model", "stream", "band"]
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id": "Action:Web:Latency",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]},
+          "destination": { "type": "string" }
+        },
+        "required": ["mac", "eType", "mode", "model", "stream", "destination"]
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  },
+  {
+    "id": "Action:Web:TechSupport",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data" : {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mac" : { "type": "string", "format": "MAC" },
+          "eType" : { "type": "string"},
+          "mode" : { "type": "string"},
+          "model" : { "type": "string"},
+          "stream" : { "type": "string", "enum": ["start", "stop"]}
+        },
+        "required": ["mac", "eType", "mode", "model", "stream"]
+      }
+    },
+    "required": ["customerId", "type", "socketId", "data"]
+  }
+]

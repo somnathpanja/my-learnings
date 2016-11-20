@@ -1,0 +1,74 @@
+[
+  {
+    "id": "CommonProperties",
+    "type": "object",
+    "properties": {
+      "customerId": { "type": "string" },
+      "type": { "type": "string" },
+      "socketId": { "type": "string" },
+      "data" : {
+        "type": "object",
+        "properties": {
+          "mac": { "type": "string" },
+          "stream" : { "type": "string" }
+        },
+        "required": ["mac", "type", "stream"]
+      }
+    },
+    "required": ["type", "data"]
+  },
+  {
+    "id": "Refresh",
+    "allOf": [
+      { "$ref": "CommonProperties" }
+    ],
+    "properties": {
+      "data": {
+        "type": "object",
+        "properties": {
+          "mode": { "type": "string" },
+          "type": { "type": "string" },
+          "opt": { "type": "string" }
+        },
+        "required": ["mode"]
+      }
+    },
+    "required": ["data"]
+  },
+  {
+    "id": "Reboot",
+    "allOf": [{ "$ref": "CommonProperties" }]
+  },
+  {
+    "id": "Debug",
+    "allOf": [{ "$ref": "CommonProperties" }],
+    "properties": {
+      "data": {
+        "type": "object",
+        "properties": {
+          "fields": { "type": "string" },
+          "type": { "type": "string" },
+          "mode": { "type": "string" }
+        },
+        "required": ["mode"]
+      }
+    },
+    "required": ["data"]
+  },
+  {
+    "id": "TroubleShoot",
+    "allOf": [{ "$ref": "CommonProperties" }]
+  },
+  {
+    "id": "ChannelScan",
+    "allOf": [{ "$ref": "CommonProperties" }]
+  },
+  {
+    "id": "Latency",
+    "allOf": [{ "$ref": "CommonProperties" }]
+  },
+  {
+    "id": "TechSupport",
+    "allOf": [{ "$ref": "CommonProperties" }]
+  }
+]
