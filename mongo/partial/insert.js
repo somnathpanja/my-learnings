@@ -144,15 +144,15 @@ var doc = {
 var i = 1;
 // Connection URL
 var MongoClient = require('mongodb').MongoClient;
-var url = 'mongodb://localhost:27017/stats';
+var url = 'mongodb://localhost:27017/';
 // Use connect method to connect to the Server
 MongoClient.connect(url, function (err, db) {
   console.log("Connected correctly to server");
 
-  var collection = db.collection('IND.inventory');
+  var collection = db.collection('somnath');
   var insert = function() {
     i++;
-    if(i> 10000){
+    if(i> 2){
       console.log("done...");
       return;
     }
@@ -161,7 +161,7 @@ MongoClient.connect(url, function (err, db) {
     doc.nid = "Delhi" + i;
     doc.tid = "Delhi Industrial"+i;
     doc.eType = "Falcon"+i;
-    collection.insert(doc, function (err, result) {
+    collection.update({ts:1111, mac : {$in:['m1', 'm2']}}, {$set: {ts:1111, a:{}, b:{}}}, {multi: true}, function (err, result) {
       if (err) {
         console.log(err);
         insert();
